@@ -1,0 +1,34 @@
+# ignore node.js modules
+node_modules
+.node_modules
+node_modules/
+
+# ignore Apple DS Store
+*.DS_Store
+
+# ignore IntelliJ project files
+*.idea
+*.iml
+\#*\#
+
+# ignore the log directry
+logs/
+
+# ignore log files
+*.log
+
+# ignore swap files
+*.swp
+*.swn
+
+# ignore tags file 
+tags
+
+# emacs turds
+*~
+
+# pid files
+*.pid
+
+# C temp files
+*.[oa]
