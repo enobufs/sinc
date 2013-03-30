@@ -8,7 +8,7 @@ var sinc = require('../lib/sinc');
 var assert = require('assert');
 var Log = require('fuzelog');
 
-var SincID = 't01_inband';
+var SincID = 't02_outband';
 var RedisPort = 6379;
 var RedisHost = 'localhost';
 var mySinc;
@@ -24,7 +24,7 @@ var logcfg = {
 
 var testlog = new Log(logcfg);
 
-suite('t01_inband', function(){
+suite('t02_outband', function(){
     suiteSetup(function(done) {
         mySinc = sinc(SincID, RedisPort, RedisHost);
         mySinc.on('ready', function(key) {
@@ -44,14 +44,14 @@ suite('t01_inband', function(){
             testlog.info('myCh: ready.');
             var n1 = myCh.createNode('n1');
             testlog.info('n1: created.');
-            n1.on('message', function(msg, from) {
+            n1.on('message', function(n, msg, from) {
                 testlog.info('n1 receveid msg: ' + msg);
                 done('Unexpected data receiption');
             });
             var n2 = myCh.createNode('n2');
             testlog.info('n2: created.');
             n2.on('message', function(n, msg, from) {
-                testlog.info(n.id + ' receveid msg: ' + msg);
+                testlog.info('n2 receveid msg: ' + msg);
                 assert.equal(msg, orgMsg, 'Data mismatch');
                 n1.close();
                 n2.close();
@@ -61,7 +61,7 @@ suite('t01_inband', function(){
             });
 
             testlog.info('n1 is sending a message');
-            n1.send(orgMsg, 'n2');
+            n1.send(orgMsg, 'n2', { outband:true });
         });
         myCh.on('close', function() {
             done();
@@ -76,13 +76,13 @@ suite('t01_inband', function(){
             var n1 = myCh.createNode('n1');
             testlog.info('n1: created.');
             n1.on('message', function(n, msg, from) {
-                testlog.info(n.id + ' receveid msg: ' + msg);
+                testlog.info('n1 receveid msg: ' + msg);
                 done('Unexpected data receiption');
             });
             var n2 = myCh.createNode('n2');
             testlog.info('n2: created.');
             n2.on('message', function(n, msg, from) {
-                testlog.info(n.id + ' receveid msg: ' + msg);
+                testlog.info('n2 receveid msg: ' + msg);
                 assert.deepEqual(msg, orgMsg, 'Data mismatch');
                 n1.close();
                 n2.close();
@@ -92,7 +92,7 @@ suite('t01_inband', function(){
             });
 
             testlog.info('n1 is sending a message');
-            n1.send(orgMsg, 'n2');
+            n1.send(orgMsg, 'n2', { outband:true });
         });
         myCh.on('close', function() {
             done();
@@ -131,7 +131,7 @@ suite('t01_inband', function(){
             });
 
             testlog.info('n1 is sending a message');
-            n1.send(orgMsg, 'n2');
+            n1.send(orgMsg, 'n2', { outband:true });
         });
         myCh.on('close', function() {
             done();
