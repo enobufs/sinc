@@ -26,7 +26,7 @@ var testlog = new Log(logcfg);
 
 suite('t02_outband', function(){
     suiteSetup(function(done) {
-        mySinc = sinc(SincID, RedisPort, RedisHost);
+        mySinc = sinc.create(SincID, RedisPort, RedisHost);
         mySinc.on('ready', function(key) {
             testlog.info('mySinc: ready: key=' + key);
         });

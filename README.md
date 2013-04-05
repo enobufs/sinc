@@ -19,8 +19,9 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
 ## Usage
 
 ### Create my sinc object
+
     var sinc = require('sinc');
-    var mySinc = sinc('sinc for my app');
+    var mySinc = sinc.create('sinc for my app');
 
 ### Create a channel
 
@@ -36,9 +37,9 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
 
 ## API
 
-### Module
+### Module Methods
 
-* [sinc(sincId, [redisPort], [redisHost])](#sinc)
+* [create(sincId, [redisPort], [redisHost])](#create)
 * [setLogger(logger)](#setLogger)
 
 ### Class: Sinc (extends events.EventEmitter)
@@ -65,61 +66,108 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
 * [Event: 'message'](#Node_Event_message)
 
 
-## Module Method
+## Module Methods
 
-<a name="sinc" />
-### sinc(sincId, [redisPort], [redisHost])
+<a name="create" />
+### create(sincId, [redisPort], [redisHost])
+Creates a Sinc object.
+
+* sincId {string} - Sinc object ID. Typically an unique string that represents your application.
+* redisPort {number} - Redis port number. Defaults to 6379.
+* redisHost {string} - Redis host name. Defaults to 'localhost'
 
 <a name="setLogger" />
 ### setLogger(logger)
+Set custom logger. The logger object must have the following method:
+
+* error()
+* warn()
+* info()
+* debug()
+
+By default, sinc module uses 'fuzelog'.
 
 ## Class: Sinc
 
 <a name="createChannel" />
 ### createChannel(chId)
+Creates a channel object.
+
+* chId {string} - A unique channel ID within the sinc ID.
 
 <a name="getNumChannels" />
 ### getNumChannels()
+Gets the number of channels currently active.
 
 <a name="Sinc_Event_ready" />
 ### Event: 'ready'
-Callback function signature: function() {}
+Notified when the sinc object become ready.
+
+CALLBACK: function( ) { }
 
 <a name="Sinc_Event_error" />
 ### Event: 'error'
-Callback function signature: function(err) {}
+CALLBACK: function(err) { }
+
+* err {string} - A text that describes the error. 
 
 ## Class: Channel
 
 <a name="createNode" />
 ### createNode(nodeId)
+Creates a node (a communication endpoint) object.
+
+* nodeId {string} - A unique node ID within the channel ID.
 
 <a name="Channel_close" />
 ### close()
+Close this channel.
 
 <a name="getNumNodes" />
 ### getNumNodes()
+Returns the number of nodes on this channel.
 
 <a name="Channel_Event_ready" />
 ### Event: 'ready'
+Notified when the channel has become ready to use.
+
+CALLBACK: function( ) { }
 
 <a name="Channel_Event_close" />
 ### Event: 'close'
+Notified when this channel has been closed.
+
+CALLBACK: function( ) { }
 
 ## Class: Node
 
 <a name="send" />
 ### send(msg, to, [options])
+Sends a message to a specified destiation, or a set of destinations.
+
+* msg {string|object|Buffer} - A message to send. When the type is 'object', it assumes the object is a JSON object.
+* to {string|array} - Destination node(s).
+* options {object}:
+   * outband {boolean} - Whether to send the massage outband.
 
 <a name="broadcast" />
 ### broadcast(msg, [options])
+Broadcasts a message.
+
+* msg {string|object|Buffer} - A message to send. When the type is 'object', it assumes the object is a JSON object.
+* options {object}:
+   * outband {boolean} - Whether to send the massage outband.
+
 
 <a name="Node_close" />
 ### close()
+Closes this node.
 
 <a name="Node_Event_message" />
 ### Event: 'message'
+Notified when a message has been received on this node.
 
+CALLBACK: function(node, msg, from) { }
 
 
 <!-- Highlight syntax for Mou.app, insert at the bottom of the markdown document  -->
