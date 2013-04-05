@@ -8,7 +8,7 @@ var sinc = require('../lib/sinc');
 var assert = require('assert');
 var Log = require('fuzelog');
 
-var SincID = 't01_inband';
+var SincID = 't03_inb_mc';
 var RedisPort = 6379;
 var RedisHost = 'localhost';
 var mySinc;
@@ -24,7 +24,7 @@ var logcfg = {
 
 var testlog = new Log(logcfg);
 
-suite('t01_inband', function(){
+suite('t03_inb_mc', function(){
     suiteSetup(function(done) {
         mySinc = sinc(SincID, RedisPort, RedisHost);
         mySinc.on('ready', function(key) {
