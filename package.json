@@ -1,30 +1,33 @@
 {
-  "name": "sinc",
-  "version": "0.0.0",
-  "description": "Simple Inter-Node Communication backed by redis.",
-  "main": "index.js",
-  "directories": {
-    "example": "examples"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/enobufs/sinc.git"
-  },
-  "dependencies": {
-      "redis": "0.8.2",
-      "underscore": "1.4.4",
-      "async": "0.2.6",
-      "events": "0.5.0",
-      "node-uuid": ">=1.4.0",
-      "fuzelog": ">=1.4.4"
-  },
-  "devDependencies": {
-      "mocha": "1.8.2"
-  },
-  "keywords": [ "cluster", "messaging", "MQ", "queue" ],
-  "author": "Y.Takeda <yt0916@gmail.com>",
-  "license": "MIT"
+    "name": "sinc",
+    "version": "0.0.1",
+    "description": "Simple Inter-Node Communication backed by redis.",
+    "main": "index.js",
+    "directories": {
+        "example": "examples"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/enobufs/sinc.git"
+    },
+    "dependencies": {
+        "redis": "0.8.x",
+        "underscore": "1.4.x",
+        "async": "0.2.x",
+        "events": "0.5.x",
+        "node-uuid": "1.4.x",
+        "fuzelog": "1.4.x"
+    },
+    "devDependencies": {
+        "mocha": "1.8.x"
+    },
+    "keywords": [ "cluster", "messaging", "chat", "queue", "redis" ],
+    "author": "Yutaka Takeda <yt0916@gmail.com>",
+    "license": "MIT",
+    "engines": {
+        "node": ">=0.6"
+    }
 }
