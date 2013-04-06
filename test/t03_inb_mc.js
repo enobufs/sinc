@@ -69,8 +69,11 @@ suite('t03_inb_mc', function(){
                 n._nRcvd = 0;
                 nodes.push(n);
                 n.on('message', function(n, msg, from) {
+                    testlog.debug('n: ' + n);
+                    testlog.debug('msg: ' + msg);
+                    testlog.debug('from: ' + from);
                     onReceived(n, msg, from);
-                });
+                }.bind(this, n));
             }
 
             testlog.info('n0 is sending a message');
@@ -114,7 +117,7 @@ suite('t03_inb_mc', function(){
                 nodes.push(n);
                 n.on('message', function(n, msg, from) {
                     onReceived(n, msg, from);
-                });
+                }.bind(this, n));
             }
 
             testlog.info('n0 is sending a message');
@@ -167,7 +170,7 @@ suite('t03_inb_mc', function(){
                 nodes.push(n);
                 n.on('message', function(n, msg, from) {
                     onReceived(n, msg, from);
-                });
+                }.bind(this, n));
             }
 
             testlog.info('n0 is sending a message');

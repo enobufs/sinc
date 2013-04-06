@@ -14,6 +14,10 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
    * Unicat
    * Multicast
    * Broadcast
+* Transfer Modes:
+   * Inband: Deliver message inband (sending user data over redis pub-sub)
+   * Outband: Deliver message outband (good for unicasting large data)
+   * Auto: (not implemented yet)
 * Support of multiple 'channels' - a logical communication domain between nodes.
 
 ## Usage
@@ -37,10 +41,11 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
 
 ## API
 
-### Module Methods
+### Module
 
 * [create(sincId, [redisPort], [redisHost])](#create)
 * [setLogger(logger)](#setLogger)
+* [Mode](#mode)
 
 ### Class: Sinc (extends events.EventEmitter)
 
@@ -66,7 +71,7 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
 * [Event: 'message'](#Node_Event_message)
 
 
-## Module Methods
+## Module
 
 <a name="create" />
 ### create(sincId, [redisPort], [redisHost])
@@ -86,6 +91,14 @@ Set custom logger. The logger object must have the following method:
 * debug()
 
 By default, sinc module uses 'fuzelog'.
+
+### Mode {object}
+Transfer mode.
+
+* Inband: 0   - Default. Data is sent using redis publish.
+* Outband: 1  - Data is stored in redis first then notify receiver of the data using pubsub.
+* Auto: 2     - Let sinc decide which mode should use. (not implemented yet)
+
 
 ## Class: Sinc
 
@@ -148,7 +161,7 @@ Sends a message to a specified destiation, or a set of destinations.
 * msg {string|object|Buffer} - A message to send. When the type is 'object', it assumes the object is a JSON object.
 * to {string|array} - Destination node(s).
 * options {object}:
-   * outband {boolean} - Whether to send the massage outband.
+   * mode {number} - Transfer mode. Mode.Inband by default.
 
 <a name="broadcast" />
 ### broadcast(msg, [options])
@@ -156,7 +169,8 @@ Broadcasts a message.
 
 * msg {string|object|Buffer} - A message to send. When the type is 'object', it assumes the object is a JSON object.
 * options {object}:
-   * outband {boolean} - Whether to send the massage outband.
+   * mode {number} - Transfer mode. Mode.Inband by default.
+   * loopback {boolean} - Whether to loopback the broadcasted message.
 
 
 <a name="Node_close" />

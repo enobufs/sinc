@@ -44,13 +44,13 @@ suite('t02_outband', function(){
             testlog.info('myCh: ready.');
             var n1 = myCh.createNode('n1');
             testlog.info('n1: created.');
-            n1.on('message', function(n, msg, from) {
+            n1.on('message', function(msg, from) {
                 testlog.info('n1 receveid msg: ' + msg);
                 done('Unexpected data receiption');
             });
             var n2 = myCh.createNode('n2');
             testlog.info('n2: created.');
-            n2.on('message', function(n, msg, from) {
+            n2.on('message', function(msg, from) {
                 testlog.info('n2 receveid msg: ' + msg);
                 assert.equal(msg, orgMsg, 'Data mismatch');
                 n1.close();
@@ -61,7 +61,7 @@ suite('t02_outband', function(){
             });
 
             testlog.info('n1 is sending a message');
-            n1.send(orgMsg, 'n2', { outband:true });
+            n1.send(orgMsg, 'n2', { mode:sinc.Mode.Outband });
         });
         myCh.on('close', function() {
             done();
@@ -75,13 +75,13 @@ suite('t02_outband', function(){
             testlog.info('myCh: ready.');
             var n1 = myCh.createNode('n1');
             testlog.info('n1: created.');
-            n1.on('message', function(n, msg, from) {
+            n1.on('message', function(msg, from) {
                 testlog.info('n1 receveid msg: ' + msg);
                 done('Unexpected data receiption');
             });
             var n2 = myCh.createNode('n2');
             testlog.info('n2: created.');
-            n2.on('message', function(n, msg, from) {
+            n2.on('message', function(msg, from) {
                 testlog.info('n2 receveid msg: ' + msg);
                 assert.deepEqual(msg, orgMsg, 'Data mismatch');
                 n1.close();
@@ -92,7 +92,7 @@ suite('t02_outband', function(){
             });
 
             testlog.info('n1 is sending a message');
-            n1.send(orgMsg, 'n2', { outband:true });
+            n1.send(orgMsg, 'n2', { mode:sinc.Mode.Outband });
         });
         myCh.on('close', function() {
             done();
@@ -110,13 +110,13 @@ suite('t02_outband', function(){
             testlog.info('myCh: ready.');
             var n1 = myCh.createNode('n1');
             testlog.info('n1: created.');
-            n1.on('message', function(n, msg, from) {
+            n1.on('message', function(msg, from) {
                 testlog.info('n1 receveid msg: ' + msg);
                 done('Unexpected data receiption');
             });
             var n2 = myCh.createNode('n2');
             testlog.info('n2: created.');
-            n2.on('message', function(n, msg, from) {
+            n2.on('message', function(msg, from) {
                 testlog.info('n2 receveid ' + msg.length + ' bytes');
                 assert(msg instanceof Buffer);
                 assert(msg.length === orgMsg.length);
@@ -131,7 +131,7 @@ suite('t02_outband', function(){
             });
 
             testlog.info('n1 is sending a message');
-            n1.send(orgMsg, 'n2', { outband:true });
+            n1.send(orgMsg, 'n2', { mode:sinc.Mode.Outband });
         });
         myCh.on('close', function() {
             done();

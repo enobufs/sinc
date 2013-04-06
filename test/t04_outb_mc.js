@@ -70,11 +70,11 @@ suite('t04_outb_mc', function(){
                 nodes.push(n);
                 n.on('message', function(n, msg, from) {
                     onReceived(n, msg, from);
-                });
+                }.bind(this, n));
             }
 
             testlog.info('n0 is sending a message');
-            nodes[0].send(orgMsg, [nodes[1].id, nodes[3].id], { outband:true });
+            nodes[0].send(orgMsg, [nodes[1].id, nodes[3].id], { mode:sinc.Mode.Outband });
         });
         myCh.on('close', function() {
             done();
@@ -114,11 +114,11 @@ suite('t04_outb_mc', function(){
                 nodes.push(n);
                 n.on('message', function(n, msg, from) {
                     onReceived(n, msg, from);
-                });
+                }.bind(this, n));
             }
 
             testlog.info('n0 is sending a message');
-            nodes[0].send(orgMsg, [nodes[1].id, nodes[3].id], { outband:true });
+            nodes[0].send(orgMsg, [nodes[1].id, nodes[3].id], { mode:sinc.Mode.Outband });
         });
         myCh.on('close', function() {
             done();
@@ -167,11 +167,11 @@ suite('t04_outb_mc', function(){
                 nodes.push(n);
                 n.on('message', function(n, msg, from) {
                     onReceived(n, msg, from);
-                });
+                }.bind(this, n));
             }
 
             testlog.info('n0 is sending a message');
-            nodes[0].send(orgMsg, [nodes[1].id, nodes[3].id], { outband:true });
+            nodes[0].send(orgMsg, [nodes[1].id, nodes[3].id], { mode:sinc.Mode.Outband });
         });
         myCh.on('close', function() {
             done();
