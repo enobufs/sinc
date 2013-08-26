@@ -11,7 +11,7 @@ Simple Inter-Node (cluster) Communication, powerd by Redis.
 * Simple API - easy to use!
 * Supports string, JSON object and binary.
 * Messaging types:
-   * Unicat
+   * Unicast
    * Multicast
    * Broadcast
 * Transfer Modes:
